@@ -6,6 +6,13 @@ struct bank {
 	double money;
 };
 
+void sumChange(bank* p_myBank, double money){
+	std::cout <<"Введите новый баланс: ";
+	std::cin >> money;
+	p_myBank->money =  money;
+};
+
+
 int main(int argc, char *argv[]) {
 	int num;
 	std::string name;
@@ -17,13 +24,12 @@ int main(int argc, char *argv[]) {
 	std::cout <<"Введите баланс: ";
 	std::cin >> money;
 	bank myBank = {num,name, money};
-	std::cout <<"Введите новый баланс: ";
-	std::cin >> money;
-	bank* p_myBank = &myBank;
-	p_myBank->money =  money;
-	std::cout << "Ваш счёт: " << p_myBank->name<<", " << p_myBank->num <<", " << p_myBank->money;
+	sumChange(&myBank, money);
+	std::cout << "Ваш счёт: " << myBank.name<<", " << myBank.num <<", " << myBank.money;
 	return 0;
 }
+
+
 //Задача 2. Счета
 //
 //Описание
