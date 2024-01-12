@@ -13,6 +13,14 @@ public:
 	std::string get_name() {
 		return this->name;
 	}
+	virtual int getA()  { return 0; }
+	virtual int getB()  { return 0; }
+	virtual int getC()  { return 0; }
+	virtual int getD()  { return 0; }
+	virtual int getCapitalA()  { return 0; }
+	virtual int getCapitalB()  { return 0; }
+	virtual int getCapitalC()  { return 0; }
+	virtual int getCapitalD()  { return 0; }
 	
 protected:
 	Figure(int count, std::string name){
@@ -22,6 +30,7 @@ protected:
 	int sides_count;
 	std::string name;
 };
+
 class Triangle: public Figure{
 public:
 	Triangle():Figure(3,"Треугольник"){
@@ -32,12 +41,12 @@ public:
 	    this->B = 60;
 	    this->C = 70;
 	}
-	int getA() const { return a; }
-    int getB() const { return b; }
-    int getC() const { return c; }
-    int getCapitalA() const { return A; }
-    int getCapitalB() const { return B; }
-    int getCapitalC() const { return C; }
+	int getA()  override { return a; }
+    int getB()  override { return b; }
+    int getC()  override { return c; }
+    int getCapitalA() override { return A; }
+    int getCapitalB() override { return B; }
+    int getCapitalC() override { return C; }
 protected:
 	double a;
 	double b;
@@ -66,14 +75,14 @@ public:
 	    this->C = 70;
 	    this->D = 80;
 	}
-	int getA() const { return a; }
-    int getB() const { return b; }
-    int getC() const { return c; }
-    int getD() const { return d; }
-    int getCapitalA() const { return A; }
-    int getCapitalB() const { return B; }
-    int getCapitalC() const { return C; }
-     int getCapitalD() const { return D; }
+	int getA() override { return a; }
+    int getB() override { return b; }
+    int getC() override { return c; }
+    int getD() override { return d; }
+    int getCapitalA() override { return A; }
+    int getCapitalB() override { return B; }
+    int getCapitalC() override { return C; }
+	int getCapitalD() override { return D; }
 protected:
 	double a;
 	double b;
@@ -131,22 +140,22 @@ class Rhombus: public Quadrangle{
 void print_info( Figure* fig) {
 	if (fig->get_sides_count() == 3) {
 		std::cout << fig->get_name() << ": \n"
-		<< "Стороны: a = " << dynamic_cast<const Triangle*>(fig)->getA()
-		<< " b = " << dynamic_cast<const Triangle*>(fig)->getB()
-		<< " c = " << dynamic_cast<const Triangle*>(fig)->getC() << "\n";
-		std::cout << "Углы: A = " << dynamic_cast<const Triangle*>(fig)->getCapitalA()
-		<< " B = " << dynamic_cast<const Triangle*>(fig)->getCapitalB()
-		<< " C = " << dynamic_cast<const Triangle*>(fig)->getCapitalC() << "\n\n";
+		<< "Стороны: a = " << (fig)->getA()
+		<< " b = " << (fig)->getB()
+		<< " c = " << (fig)->getC() << "\n";
+		std::cout << "Углы: A = " <<(fig)->getCapitalA()
+		<< " B = " << (fig)->getCapitalB()
+		<< " C = " << (fig)->getCapitalC() << "\n\n";
 	} else if (fig->get_sides_count() == 4) {
 		std::cout << fig->get_name() << ": \n"
-		<< "Стороны: a = " << dynamic_cast<const Quadrangle*>(fig)->getA()
-		<< " b = " << dynamic_cast<const Quadrangle*>(fig)->getB()
-		<< " c = " << dynamic_cast<const Quadrangle*>(fig)->getC()
-		<< " d = " << dynamic_cast<const Quadrangle*>(fig)->getD() << "\n";
-		std::cout << "Углы: A = " << dynamic_cast<const Quadrangle*>(fig)->getCapitalA()
-		<< " B = " << dynamic_cast<const Quadrangle*>(fig)->getCapitalB()
-		<< " C = " << dynamic_cast<const Quadrangle*>(fig)->getCapitalC()
-		<< " D = " << dynamic_cast<const Quadrangle*>(fig)->getCapitalD() << "\n\n";
+		<< "Стороны: a = " << (fig)->getA()
+		<< " b = " << (fig)->getB()
+		<< " c = " << (fig)->getC()
+		<< " d = " << (fig)->getD() << "\n";
+		std::cout << "Углы: A = " << (fig)->getCapitalA()
+		<< " B = " << (fig)->getCapitalB()
+		<< " C = " << (fig)->getCapitalC()
+		<< " D = " << (fig)->getCapitalD() << "\n\n";
 	} else {
 		std::cout << "Неправильное количество углов\n";
 	}
