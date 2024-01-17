@@ -1,4 +1,4 @@
-#include "classCounter.h"
+#include "Counter.h"
 
 Counter::Counter(int count ){
 	this->count = count;

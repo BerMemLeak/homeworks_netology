@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-#include "classCounter.h"
-
+#include "Counter.h"
+#include "Counter.cpp"
 
 int main(int argc, char *argv[]) {
 	std::string answ;
