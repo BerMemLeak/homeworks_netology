@@ -5,4 +5,4 @@ cmake_minimum_required(VERSION 3.0)
 project(MyProject)
 
 # Добавляем исполняемый файл и исходный код для сборки
-add_executable(6_2 main.cpp)
+add_executable(6_2 main.cpp  Counter.cpp)

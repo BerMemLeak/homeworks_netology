@@ -11,17 +11,7 @@
 #include "classes/Rhombus/Rhombus.h"
 #include "print_info_func/print_info_func.h"
 
-#include "classes/Figure/Figure.cpp"
-#include "classes/Triangle/Triangle.cpp"
-#include "classes/Quadrangle/Quadrangle.cpp"
-#include "classes/RightTriangle/RightTriangle.cpp"
-#include "classes/IsoscelesTriangle/IsoscelesTriangle.cpp"
-#include "classes/EquilateralTriangle/EquilateralTriangle.cpp"
-#include "classes/EquilateralQuadrangle/EquilateralQuadrangle.cpp"
-#include "classes/Square/Square.cpp"
-#include "classes/Parallelogram/Parallelogram.cpp"
-#include "classes/Rhombus/Rhombus.cpp"
-#include "print_info_func/print_info_func.cpp"
+
 
 int main(int argc, char *argv[]) {
 	Triangle tri;

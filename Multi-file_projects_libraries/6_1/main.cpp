@@ -1,6 +1,6 @@
 #include <iostream>
 #include "math_func.h"
-#include "math_func.cpp"
+
 
 int main(){
 	double x = 0;
