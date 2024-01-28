@@ -51,9 +51,37 @@ public:
 		int gcd = greatestCommonDivisor(fullNum, fullDen);
 		return Fraction(fullNum/gcd,fullDen/gcd);
 	}
-	//вот тут еще функции
-	
-
+	Fraction operator++ (){
+		int gcd = greatestCommonDivisor(this->numerator_ , this->denominator_);
+		this->numerator_ = this->numerator_+(1 * this->denominator_) ;
+		this->numerator_ = this->numerator_/gcd;
+		this->denominator_ = this->denominator_/gcd;
+		return *this;
+	}
+	Fraction operator-- (){
+		int gcd = greatestCommonDivisor(this->numerator_ , this->denominator_);
+		this->numerator_ = this->numerator_-(1 * this->denominator_) ;
+		this->numerator_ = this->numerator_/gcd;
+		this->denominator_ = this->denominator_/gcd;
+		return *this;
+	}
+	//унарный минус
+	Fraction operator- (){
+		int gcd = greatestCommonDivisor(this->numerator_, this->denominator_);
+		return Fraction(-(this->numerator_)/gcd,this->denominator_/gcd);
+	}
+	Fraction operator++ (int a){
+		Fraction temp = *this;
+		this->numerator_ = this->numerator_+(1 * this->denominator_) ;
+		int gcd = greatestCommonDivisor(this->numerator_, this->denominator_);
+		return temp;
+	}
+	Fraction operator-- (int a){
+		Fraction temp = *this;
+		this->numerator_ = this->numerator_-(1 * this->denominator_) ;
+		int gcd = greatestCommonDivisor(this->numerator_, this->denominator_);
+		return temp;
+	}	
 };
 
 int main()
@@ -77,17 +105,39 @@ int main()
 		std::cout << f1 <<" - "<< f2 << " = "<< f1 - f2 <<"\n";
 		std::cout << f1 <<" * "<< f2 << " = "<< f1 * f2 <<"\n";
 		std::cout << f1 <<" / "<< f2 << " = "<< f1 / f2 <<"\n";
-		// вот тут еще выводы
+//		std::cout << f1 <<" - " << " = "<< -f1 <<"\n";
+		std::cout <<" ++"  << f1 << " * "<< f2 <<" = "<< ++f1 * f2 <<"\n";
+		std::cout <<"Значение дроби 1 = "<< f1 <<"\n";
+		std::cout  << f1 <<"--" << " * "<< f2 <<" = "<< f1-- * f2 <<"\n";
+		std::cout <<"Значение дроби 1 = "<< f1 <<"\n";
 	} catch (error& mes) {
 		std::cout << mes.what();
 	}
 	
-
-
-
 	return 0;
 }
-
+//
+//Задача 2. Остальные операции с дробями
+//
+//В этом задании вы переопределите остальные операторы для класса дроби.
+//
+//Необходимо переопределить операторы для класса Fraction из предыдущего задания:
+//
+//сложение;
+//вычитание;
+//умножение;
+//деление;
+//унарный минус;
+//инкремент постфиксный и префиксный;
+//декремент постфиксный и префиксный.
+//Продемонстрируйте работу ваших операторов. Попросите пользователя ввести две дроби и покажите результат каждой операции. Операции декремента и инкремента отнимают и прибавляют к дроби 1 соответственно.
+//
+//Составьте выражения, содержащие постфиксный и префиксный инкремент и декремент, чтобы продемонстрировать разницу между постфиксной и префиксной версиями.
+//
+//Пример работы программы
+//
+//Консоль
+//
 //Введите числитель дроби 1: 3
 //Введите знаменатель дроби 1: 4
 //Введите числитель дроби 2: 4
