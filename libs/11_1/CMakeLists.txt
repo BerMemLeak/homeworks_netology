@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.0)
+project(main_proj VERSION 0.1 LANGUAGES CXX)
+include_directories(Greeter)
+add_executable(main_proj main.cpp)
+add_subdirectory(Greeter)
+target_link_libraries(main_proj GREETER_LIB)
