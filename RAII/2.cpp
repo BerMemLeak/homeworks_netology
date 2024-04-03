@@ -28,7 +28,7 @@ public:
 		}
 	}
 	int get_element(int index){
-	if (index > arr_count - 1) {
+	if (index > arr_count - 1 || index < 0) {
 			throw "Нет элемента по этому индексу";
 		}
 		return *(this->arrBegin + index);
@@ -41,10 +41,11 @@ public:
 	smart_array& operator=(const smart_array& b) {
 		if (this != &b) {
 			delete[] arrBegin; 
-			len = b.len;
-			arrBegin = new int[len];
+			this->len = b.len;
+			this->arr_count = b.arr_count;
+			this->arrBegin = new int[len];
 			for (int i = 0; i < len; i++) {
-				arrBegin[i] = b.arrBegin[i]; 
+				this->arrBegin[i] = b.arrBegin[i]; 
 			}
 		}
 		return *this;
@@ -55,7 +56,7 @@ private:
 	int arr_count = 0;
 };
 int main(int argc, char *argv[]) {
-	try {
+	
 		
 		smart_array arr(5);
 		arr.add_element(1);
@@ -64,17 +65,25 @@ int main(int argc, char *argv[]) {
 		
 		smart_array new_array(2);
 		new_array.add_element(44); 
+		new_array.add_element(43); 
 		new_array.add_element(34);
 		
 		arr = new_array;
 		arr.cout_mass();
 		std::cout << " \n";
 		new_array.cout_mass();
-		std::cout << " \n" << &arr;
-		std::cout << " \n" << &new_array;
-
-	}
-	catch (const char* ex) {
+		std::cout << " \n";
+	try {
+		std::cout<<arr.get_element(1);
+		std::cout << " \n";
+		}catch (const char* ex) {
+			std::cout << ex << std::endl;
+		}
+	
+	try {
+		std::cout<<new_array.get_element(1);
+		std::cout << " \n";
+	}catch (const char* ex) {
 		std::cout << ex << std::endl;
 	}
 }

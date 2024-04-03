@@ -28,7 +28,7 @@ public:
 		}
 	}
 	int get_element(int index){
-	if (index > arr_count - 1) {
+	if (index > arr_count - 1 || index < 0) {
 			throw "Нет элемента по этому индексу";
 		}
 		return *(this->arrBegin + index);
@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
 		arr.add_element(14);
 		arr.add_element(15);
 		arr.cout_mass();
-		std::cout <<"\n"<<arr.get_element(7) << std::endl;
+		std::cout <<"\n"<<arr.get_element(-1) << std::endl;
 	}
 	catch (const char* ex) {
 		std::cout << ex << std::endl;
