@@ -6,50 +6,35 @@ class mod3{
 private:
 	int* arr;
 	int size;
+	int sum ;
+	int count ;
 public:
-	mod3(int* arr,int size): arr(arr), size(size){};
-	int operator()(){
-		int result = 0;
+	mod3(int* arr,int size): arr(arr), size(size),sum(0), count(0){};
+	void operator()(){
 		for (int i = 0; i < size; i++) {
 			if (arr[i] % 3 == 0) {
-				result++;
+				this->count++;
+				this->sum+=arr[i];
 			}
 		}
-		
-		return result;
 	}
+	int get_sum(){return this->sum;}
+	int get_count(){return this->count;}
 };
-class Sum_mod3{
-private:
-	int* arr;
-	int size;
-public:
-	Sum_mod3(int* arr,int size): arr(arr), size(size){};
-	int operator()(){
-		int result = 0;
-		for (int i = 0; i < size; i++) {
-			if (arr[i] % 3 == 0) {
-				result+= arr[i];
-			}
-		}
-		
-		return result;
-	}
-};
+
 
 
 int main(int argc, char *argv[]) {
 	int arr[] = {4, 1, 3, 6, 25, 54};
-	for (int i = 0; i < sizeof(arr)/arr[0]; i++) {
+	for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++) {
 		std::cout << arr[i] << " ";
 	}
 	std::cout<<std::endl;
 	
-	mod3 arr1(arr,sizeof(arr)/arr[0]);
-	Sum_mod3 arr2(arr,sizeof(arr)/arr[0]);
-	
-	std::cout << "get_sum() = "<< arr2()<< std::endl;
-	std::cout << "get_count() = "<< arr1();
+	mod3 arr1(arr,sizeof(arr)/sizeof(arr[0]));
+	arr1();
+	std::cout << "get_sum() = "<< arr1.get_sum()<< std::endl;
+	std::cout << "get_count() = "<< arr1.get_count();
 
 	
 
