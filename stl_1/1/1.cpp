@@ -29,18 +29,14 @@ int main(int argc, char* argv[]) {
     std::getline(std::cin, str);
     std::string sorted = sortByFrequency(str);
     std::cout << "Отсортированная строка: " << sorted << std::endl;
-    for (int i = 1, j = 1; i < str.size(); i++) {
+    for (int i = 1, j = 1; i <= str.size(); i++) {
         if(sorted[i] == sorted[i - 1]){
             j++;
         }
         else{
-            
-            if(j == 1){
-                
-            }else{
-                std::cout <<"\n"<< sorted[i - 1] <<": "<< j;
-                j = 1;
-            }
+            std::cout <<"\n"<< sorted[i - 1] <<": "<< j;
+            j = 1;
+        
         }
     }
     return 0;
