@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <vector>
+#include <algorithm>
+
 
 bool compare(std::pair<char, int>& a, std::pair<char, int>& b) {
     return a.second > b.second; 
@@ -29,15 +32,21 @@ int main(int argc, char* argv[]) {
     std::getline(std::cin, str);
     std::string sorted = sortByFrequency(str);
     std::cout << "Отсортированная строка: " << sorted << std::endl;
-    for (int i = 1, j = 1; i <= str.size(); i++) {
-        if(sorted[i] == sorted[i - 1]){
-            j++;
+    if (!sorted.empty()) {
+        char currentChar = sorted[0];
+        int count = 1;
+        for (char c : sorted.substr(1)) { // начинаем со второго символа
+            if (c == currentChar) {
+                count++;
+            }
+            else {
+                std::cout << "\n" << currentChar << ": " << count;
+                currentChar = c;
+                count = 1;
+            }
         }
-        else{
-            std::cout <<"\n"<< sorted[i - 1] <<": "<< j;
-            j = 1;
-        
-        }
+        // Вывод частоты для последнего символа
+        std::cout << "\n" << currentChar << ": " << count << std::endl;
     }
     return 0;
 }

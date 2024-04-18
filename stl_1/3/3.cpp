@@ -10,6 +10,18 @@ private:
 	int capasity = 1;
 	T* vecPtr;
 public:
+	vector& operator=(const vector& other) {
+		if (this != &other) {
+			delete[] vecPtr;
+			size = other.size;
+			capasity = other.capasity;
+			vecPtr = new T[capasity];
+			for (int i = 0; i < size; ++i) {
+				vecPtr[i] = other.vecPtr[i];
+			}
+		}
+		return *this;
+	}
 	//пушбек
 	void push_back(T num){
 		if(size < capasity){
@@ -50,7 +62,7 @@ public:
 	
 	// at
 	T& at(int index){
-		if(size <= index || index < 0) throw std::string("Нет такого инекса");
+		if(size <= index || index < 0) throw std::out_of_range("Нет такого инекса");
 		return vecPtr[index];
 	}
 	//size getter
@@ -76,13 +88,14 @@ int main(int argc, char *argv[]) {
 		vect.push_back('g');
 		vect.push_back('h');
 		vector<char> newVec(vect);
-		std::cout <<"size: "<< newVec.sizeGetter()<<std::endl;
-		std::cout <<"capasity: "<< newVec.capasityGetter()<<std::endl;
-		for(int i = 0; i < newVec.sizeGetter(); i ++){
-			std::cout << i+1 <<" "<< newVec.at(i)<<"\n";
+		vector<char> newVec1 = newVec;
+		std::cout <<"size: "<< newVec1.sizeGetter()<<std::endl;
+		std::cout <<"capasity: "<< newVec1.capasityGetter()<<std::endl;
+		for(int i = 0; i < newVec1.sizeGetter(); i ++){
+			std::cout << i+1 <<" "<< newVec1.at(i)<<"\n";
 		}
-	} catch (std::string error) {
-		std::cout << error;
+	} catch (std::out_of_range error) {
+		std::cout << error.what();
 	}
 }
 

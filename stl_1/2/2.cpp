@@ -1,6 +1,5 @@
 #include <iostream>
-#include "map"
-using namespace std;
+#include <map>
 
 struct Compare {
 	bool operator()(const int& a, const int& b) const {
