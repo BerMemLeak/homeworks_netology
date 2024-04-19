@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <vector>
 #include <algorithm>
+#include <utility>
 
 
 bool compare(std::pair<char, int>& a, std::pair<char, int>& b) {

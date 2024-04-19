@@ -22,6 +22,7 @@ int main(int argc, char *argv[]) {
 	for (const auto& elem : nums){
 		std::cout <<elem.first <<std::endl;
 	}
+	return 0;
 }
 
 
