@@ -16,17 +16,18 @@ public:
     big_integer(std::string& old_num){
         number = std::move(old_num);
     }//если передаем по ссылке
-
-    big_integer& operator=(big_integer& other){
+    
+    big_integer(big_integer&& other) noexcept: number(std::move(other.number)){};
+    
+    big_integer& operator=(big_integer&& other) noexcept{
         if (this != &other) {
-            number = std::move(other.number);// так как оператор присваивания - функция класса,
-            // то она имеет доступ и к other
+            number = std::move(other.number);
         }
         return *this;
     }
+    ~big_integer()= default;
     
-    // вот тут не понял, нужно ли создавать новое большое число? или можно просто строку вернуть 
-    std::string operator+(big_integer& other){
+    big_integer operator+(const big_integer& other) const{
         int max_str_size = number.size() > other.number.size() ? number.size(): other.number.size();
         std::string result(max_str_size, '0');   
         std::string number1 = std::string(max_str_size - number.length(), '0') + number;
@@ -37,7 +38,8 @@ public:
             int div = sum / 10;
             result[i] = mod + '0';;
             next = div;
-        }return result;
+        }
+        return big_integer(std::move(result));
     }
 
     std::string operator*(int integer){
@@ -67,7 +69,12 @@ int main (){
     auto number2 = big_integer("78524");
     auto result = number1 + number2;
     std::cout << result<<"\n";
-    std::cout << number2 * 23;
+    std::cout << number2 * 23<<"\n";
+    
+    auto d = number1 + number2;
+    std::cout << d;
+
+    return 0;
 }
 //Задача 2. Большие числа
 //

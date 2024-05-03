@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <utility>
+#include <vector>
 template<class T>
 void move_vectors(std::vector<T>& a, std::vector<T>& b){
     b = std::move(a);
