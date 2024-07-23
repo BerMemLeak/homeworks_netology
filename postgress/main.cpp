@@ -35,9 +35,9 @@ public:
             tx.commit();
 
         } catch (const pqxx::sql_error& e) {
-            std::cerr << "SQL error: " << e.what() << std::endl;
+            throw ;
         } catch (const std::exception& e) {
-            std::cerr << "Error: " << e.what() << std::endl;
+            throw ;
         }
     }
     void add_client(const std::string& name, const std::string& surname, const std::string& email, const std::string& numbers) {
@@ -56,9 +56,9 @@ public:
 
             tx.commit();
         } catch (const pqxx::sql_error& e) {
-            std::cerr << "SQL error: " << e.what() << std::endl;
+            throw ;
         } catch (const std::exception& e) {
-            std::cerr << "Error: " << e.what() << std::endl;
+            throw ;
         }
     }
 
@@ -71,9 +71,9 @@ public:
             tx.exec_params(insert, name, surname, email, new_number);
             tx.commit();
         } catch (const pqxx::sql_error& e) {
-            std::cerr << "SQL error: " << e.what() << std::endl;
+            throw ;
         } catch (const std::exception& e) {
-            std::cerr << "Error: " << e.what() << std::endl;
+            throw ;
         }
     }
     void update_client_data(const std::string& name, const std::string& surname, const std::string& email, const std::string& new_name = "",  const std::string& new_surname = "",  const std::string& new_email = "") {
@@ -86,9 +86,9 @@ public:
             tx.exec_params(update, final_name, final_surname, final_email, name, surname, email);
             tx.commit();
         } catch (const pqxx::sql_error& e) {
-            std::cerr << "SQL error: " << e.what() << std::endl;
+            throw ;
         } catch (const std::exception& e) {
-            std::cerr << "Error: " << e.what() << std::endl;
+            throw ;
         }
     }
     void delete_num(const std::string& num){
@@ -100,9 +100,9 @@ public:
 
             tx.commit();
         } catch (const pqxx::sql_error& e) {
-            std::cerr << "SQL error: " << e.what() << std::endl;
+            throw ;
         } catch (const std::exception& e) {
-            std::cerr << "Error: " << e.what() << std::endl;
+            throw ;
         }
     }
     void delete_client(const std::string& id){
@@ -116,9 +116,9 @@ public:
 
             tx.commit();
         } catch (const pqxx::sql_error& e) {
-            std::cerr << "SQL error: " << e.what() << std::endl;
+            throw ;
         } catch (const std::exception& e) {
-            std::cerr << "Error: " << e.what() << std::endl;
+            throw ;
         }
     }
     std::string find_client_id(const std::string& num){
@@ -133,9 +133,9 @@ public:
             tx.commit();
             return client_id;
         } catch (const pqxx::sql_error& e) {
-            std::cerr << "SQL error: " << e.what() << std::endl;
+            throw ;
         } catch (const std::exception& e) {
-            std::cerr << "Error: " << e.what() << std::endl;
+            throw ;
         }
 
     }
@@ -153,34 +153,39 @@ public:
             tx.commit();
             return client_id;
         } catch (const pqxx::sql_error &e) {
-            std::cerr << "SQL error: " << e.what() << std::endl;
-            return "";
+            throw ;
         } catch (const std::exception &e) {
-            std::cerr << "Error: " << e.what() << std::endl;
-            return "";
+            throw ;
         }
     }
 };
 
 int main() {
-    clientsData db;
+    try {
+        clientsData db;
 
-    std::string name = "Иван";
-    std::string surname = "Иванов";
-    std::string email = "ivan@example.com";
-    std::string numbers = "09193";
-    //db.add_client(name, surname, email, numbers); // добавление клиента
-    std::string num = "1898";
+        std::string name = "Иван";
+        std::string surname = "Иванов";
+        std::string email = "ivan@example.com";
+        std::string numbers = "09193";
+        //db.add_client(name, surname, email, numbers); // добавление клиента
+        std::string num = "1898";
 
-//    db.add_num(name, surname, email, num); // добавление номера
-//    db.update_client_data(name, surname,email, "кирилл", "павлюченко", "ivan@example2343.com");
-//    db.delete_num("1898");
+    db.add_num(name, surname, email, num); // добавление номера
+    db.update_client_data(name, surname,email, "кирилл", "павлюченко", "ivan@example2343.com");
+    db.delete_num("1898");
 
-    std::string number =  "123-4654654" ;
-//    db.add_num("Иван", "Иванов", "ivan@example.com", number);
+        std::string number =  "123-4654654" ;
+    db.add_num("Иван", "Иванов", "ivan@example.com", number);
 
-//    db.delete_client(db.find_client_id("09193"));
-    std::cout<< db.find_client_id(name,surname,email);
+    db.delete_client(db.find_client_id("09193"));
+        std::cout<< db.find_client_id(name,surname,email);
 
-    return 0;
+        return 0;
+    } catch (const pqxx::sql_error& e) {
+            std::cerr << "SQL error: " << e.what() << std::endl;
+    } catch (const std::exception& e) {
+        throw ;
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
 }
