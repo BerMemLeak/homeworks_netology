@@ -2,7 +2,7 @@
 #include <vector>
 #include <thread>
 #include <chrono>
-
+#include <iomanip>
 //Параллельные вычисления
 //
 //Напишите программу для расчёта суммы двух векторов.
@@ -12,14 +12,14 @@
 //Время выполнения для каждого варианта сведите в таблицу и выведите её в консоль.
 //Первый запущенный поток должен вывести на экран доступное количество аппаратных ядер.
 
-void sumVectorsPart(const std::vector<int>& a, const std::vector<int>& b, std::vector<int>& result, int start, int end) {
+void sumVectorsPart(const std::vector<double>& a, const std::vector<double>& b, std::vector<double>& result, int start, int end) {
     for (int i = start; i < end; ++i) {
         result[i] = a[i] + b[i];
     }
 }
 
 
-void parallelSumVectors(const std::vector<int>& a, const std::vector<int>& b, std::vector<int>& result, int numThreads) {
+void parallelSumVectors(const std::vector<double>& a, const std::vector<double>& b, std::vector<double>& result, int numThreads) {
     std::vector<std::thread> threads;
     int n = a.size();
     int partSize = n / numThreads;
@@ -37,30 +37,29 @@ void parallelSumVectors(const std::vector<int>& a, const std::vector<int>& b, st
 
 int main() {
     std::vector<int> sizes = {1000, 10000, 100000, 1000000};
-    std::vector<int> threadCounts = {1,2, 4, 8, 16};
+    int threadCounts = static_cast<int>(std::thread::hardware_concurrency());
 
-    unsigned int numCores = std::thread::hardware_concurrency();
-    std::cout << "Количество аппаратных ядер: " << numCores << "\n\n";
+    std::cout << "Количество аппаратных ядер: " << threadCounts << "\n\n";
 
-    std::cout << "Размер массива | Потоки | Время выполнения (мс)\n";
-    std::cout << "---------------------------------------------\n";
+    std::cout  << "\t\t1000\t\t10000\t100000\t1000000\n";
 
-    for (int size : sizes) {
-        std::vector<int> a(size, 1);
-        std::vector<int> b(size, 2);
-        std::vector<int> result(size);
+    for (auto thr = 1; thr <= threadCounts; thr*=2) {
 
-        for (int numThreads : threadCounts) {
+        std::cout << thr << "\t";
+        for (auto& size: sizes) {
+            std::vector<double> a(size, 1);
+            std::vector<double> b(size, 2);
+            std::vector<double> result(size);
+
             auto start = std::chrono::high_resolution_clock::now();
 
-            parallelSumVectors(a, b, result, numThreads);
+            parallelSumVectors(a, b, result, thr);
 
             auto end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double, std::milli> duration = end - start;
 
-            std::cout << size << "          | " << numThreads << "      | " << duration.count() << "\n";
-        }
-        std::cout << "---------------------------------------------\n";
+            std::cout << std::setw(10) << duration.count();        }
+        std::cout <<"\n";
     }
 
     return 0;
