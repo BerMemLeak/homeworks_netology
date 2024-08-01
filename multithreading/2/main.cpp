@@ -41,11 +41,11 @@ int main() {
 
     std::cout << "Количество аппаратных ядер: " << threadCounts << "\n\n";
 
-    std::cout  << "\t\t1000\t\t10000\t100000\t1000000\n";
+    std::cout  << "\t\t\t\t1000\t\t10000\t100000\t1000000\n";
 
     for (auto thr = 1; thr <= threadCounts; thr*=2) {
 
-        std::cout << thr << "\t";
+        std::cout << thr <<" потоков "<< "\t";
         for (auto& size: sizes) {
             std::vector<double> a(size, 1);
             std::vector<double> b(size, 2);
