@@ -31,7 +31,7 @@ int generateRandomNumber(int min, int max) {
 // Прогресс-бар
 void progress_bar(int len, int thread_num, std::vector<std::thread>& thr) {
     const int startX = 1;
-    const int startY = 2;
+    const int startY = 10;
     std::string progress(len, ' ');
     int one_step_time = generateRandomNumber(100, 500);
 
@@ -51,7 +51,7 @@ void progress_bar(int len, int thread_num, std::vector<std::thread>& thr) {
             std::lock_guard<std::mutex> lock(mtx);
             moveTo(startX, startY + thread_num);
             std::cout << "\r\033[K";
-            std::cout << thr[thread_num].get_id() << " " << thread_num + 1 << ": [" << progress << "]";
+            std::cout << thread_num + 1 << " " << thr[thread_num].get_id() << ": [" << progress << "]";
             std::cout.flush();
         }
     }
@@ -61,8 +61,6 @@ void progress_bar(int len, int thread_num, std::vector<std::thread>& thr) {
 
     {
         std::lock_guard<std::mutex> lock(mtx);
-        moveTo(startX, startY + thread_num);
-        clearLine(len + 50); // Очищаем строку с запасом
         std::cout << " завершён за " << duration.count() << " секунд\n";
         std::cout.flush();
     }
@@ -85,7 +83,7 @@ int main() {
     int progress_barr_len = 20;
     int numThreads = 4;
 
-    std::cout << "id\t\tprogress bar\ttime\n";
+    std::cout << "\tid\t\tprogress bar\ttime\n";
     progress_thread(progress_barr_len, numThreads);
 
     return 0;
