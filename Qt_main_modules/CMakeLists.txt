@@ -13,10 +13,12 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Network)
 
+find_package(Qt6 REQUIRED COMPONENTS Sql)
+
 add_executable(Qt_main_modules
   main.cpp
 )
-target_link_libraries(Qt_main_modules Qt${QT_VERSION_MAJOR}::Core Qt6::Network)
+target_link_libraries(Qt_main_modules PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt6::Network Qt6::Sql)
 
 include(GNUInstallDirs)
 install(TARGETS Qt_main_modules
